@@ -264,19 +264,18 @@ describe(testSuiteName, () => {
     mockFormDataForSubmission();
 
     const form = document.querySelector('#new-user-form');
-    const usernameResultEl = document.querySelector('#results-did-like-assignment');
+    const didLikeResultSpan = document.querySelector('#results-did-like-assignment');
     const didLikeAssignmentLabel = form.querySelector('label[for="did-like-assignment"]');
 
     const fakeEvent = new Event('submit');
     fakeEvent.preventDefault = jest.fn();
     form.dispatchEvent(fakeEvent);
 
-    expect(usernameResultEl.textContent).toBe('No');
+    expect(didLikeResultSpan.textContent).toBe('No');
 
-    // isn't it cool that we can just click the label and it works?
     didLikeAssignmentLabel.click();
     form.dispatchEvent(fakeEvent);
-    expect(usernameResultEl.textContent).toBe('Yes');
+    expect(didLikeResultSpan.textContent).toBe('Yes');
 
     scoreCounter.correct(expect); // DO NOT TOUCH
   });
@@ -303,7 +302,6 @@ describe(testSuiteName, () => {
 
     scoreCounter.correct(expect); // DO NOT TOUCH
   });
-
 
   afterAll(scoreCounter.export);
 });
