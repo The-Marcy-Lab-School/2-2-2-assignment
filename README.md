@@ -23,12 +23,22 @@
 ## Before You Start
 Here it is, building a full page and form from scratch! Remember, there are a *lot* of specifics here with attributes and text content, *be careful*. When all else fails, check the tests to see exactly what it's expecting and then do that. No extra trailing or leading spaces and watch our for colons in labels! We never *try* to add mistakes in the README, but as always if the tests say one thing, and the README says another, **do what the test is asking for.**
 
+To give you an idea of what we're building, look at the demo below!
+
+![A webpage with a heading reading "Forms Practice". Below is a form with the heading "Create A New User" and input fields for username, coding level (with options for "beginner" or "proficient"), location, and a checkbox for "did you enjoy this assignment?". The demo shows a user submitting this form and the values are displayed below the form.](images/demo-finished.gif)
+
 # Short answers
 Don't forget to do them! The cover some important things about forms.
 
 # Question 1 - Setting up the basic page
-So as you can see, there's an empty `index.html` and an empty `index.js`.
+> 💡 Tip: Use emmet abbreviations to quickly create HTML elements! Most abbreviations are aligned with CSS selectors. For example:
+> * To create an `h1` with the `id="banner"` attribute, start typing `h1#banner` and hit <kbd>Enter</kbd>.
+> * To create a `li` with an `a` tag inside, start typing `li>a` and hit <kbd>Enter</kbd>.
+
+As you can see, there's an empty `index.html` and an empty `index.js`.
 Here's everything you have to do:
+
+- Add the boilerplate HTML structure. Use the `html:5` emmet abbreviation to speed up your work!
 - Add a `head` tag with a `title` tag
 - The `title` of your page should be `Forms Practice`
 - Add a `body` tag and a `main` tag inside of it
@@ -69,6 +79,8 @@ Forms are important (or should be) to our page, so we need to tell assistive tec
 - Give it a text content of `Create A New User`
 
 Ok, that's going to help our sighted users. In general giving your form a heading just helps clarify what it does. But what about our screen reader users? To officially make this a landmark we need an "ARIA" label attribute, either `aria-label` or `aria-labelledby` (note the lowercase "by"). `aria-label` lets us label a form *without* using a visible heading. But since we have our `h2`, let's use that! We'll use `aria-labelledby` and give it the `id` of our `h2` tag.
+
+[Read more about aria-labelledby here](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-labelledby).
 
 Congratulations, your form is now more accessible than like 70% of the forms on the internet! *Killing it!*
 
@@ -116,8 +128,12 @@ It's ok that our `id` and `name` match, but that won't always be the case! Also,
 
 Fun fact, if we wanted a default value for our text input (not a `placeholder`), the we could add one by using the `value` attribute. But in this case we don't, so don't add a `value` to your input, it'll break the tests.
 
-# Question 4 - Adding a fieldset and legend
-Alright, you may not have seen these tags before, but we need a `fieldset` and `legend` to group our radio buttons together. `fieldset` is like a semantic `div`, it's useful for grouping similar elements together on a form. `legend` is like a label for all the inputs in the `fieldset` at once. `fieldset`s can be used for other inputs than radio buttons, but it's by far the most common use case. Here's an [article that shows how to build a radio group with a fieldset](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio)
+# Question 4 - Adding a fieldset and legend for coding level
+Alright, you may not have seen these tags before, but we need a `fieldset` and `legend` to group our radio buttons together. 
+* `fieldset` is like a semantic `div`, it's useful for grouping similar elements together on a form. 
+* `legend` is like a label for all the inputs in the `fieldset` at once. 
+
+`fieldset`s can be used for other inputs than radio buttons, but it's by far the most common use case. Here's an [article that shows how to build a radio group with a fieldset](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio)
 
 For this question, lets's just focus on building the `fieldset` and `legend`
 - inside your form create a `fieldset` tag (no need for an id here, it's the only one)
@@ -158,7 +174,7 @@ Now, radio buttons are good to visually and quickly display a few options. But o
 
 [Check out this `W3 schools` tutorial on select tags](https://www.w3schools.com/tags/tag_select.asp). Notice that the `label` tag goes outside, the `name` attribute goes on the `select` tag, and each nested option has the `value`.
 
-Now that you know how to build one, let's do it!
+Now that you know how to build one, let's do it! Do this _after_ the `fieldset`.
 - First, we need a `label` tag with:
   - a `for` attribute of `location`
   - text content of `Location:` (no space!)
@@ -170,7 +186,7 @@ Now that you know how to build one, let's do it!
   - Second `option` has a `value` of `other borough` and text of `Other Borough`
   - Third `option` has a `value` of `out of state` and text of `Out Of State`
 
-The order matters. The first option will essentially be the default value of the select, and then when the drop down opens it will render the options in the same order as they are in the dom. That's almost always important as you'll want to list your options alphabetically or by popularity or something.
+**The order matters.** The first option will essentially be the default value of the select, and then when the drop down opens it will render the options in the same order as they are in the dom. That's almost always important as you'll want to list your options alphabetically or by popularity or something.
 
 Seriously, make sure the order matches or the tests will fail.
 
@@ -196,7 +212,14 @@ Finally, *finally*, let's add a submit button. By default all `buttons` have a `
 Fun fact: if you wanted a button that *did not* submit, then you would need a type of `button` and then you would need to add an event listener to it to do something. But we don't need that here. And a `type` of `reset` would clear out the form. We will do that later, but not with a button!
 
 # Part 2 - The submit event
-OK so all your HTML-only tests should be passing at this point. If they are, then you can move on to actually writing some `JS` to handle our submission. But I want to make sure you can grab the information from the form easily. You do not need query selectors if you built your form right!
+OK so all your HTML-only tests should be passing at this point. If they are, then you can move on to actually writing some `JS` to handle our submission.
+
+# Question 9 - Adding a listener to prevent the default behavior
+In `index.js` attach a `submit` event listener to the form and make sure to prevent the default behavior. If you don't know how to do that, check out the [MDN docs on preventing default behavior](https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault). Remember, the default behavior of the form is to reload the page (we didn't provide an `action` attribute, so there's nowhere but the current page to navigate, hence the reload), and we don't want that!
+
+# How to grab values
+
+Before we move on, I want to make sure you can grab the information from the form easily. You do not need query selectors if you built your form right!
 
 You can either just grab each input from the form by its name:
 
@@ -232,11 +255,10 @@ Oh, one *last* little gotcha: checkboxes. With `FormData`, if a checkbox is clic
 
 Alright, now you're off to the races!
 
-# Question 9 - Adding a listener to prevent the default behavior
-In `index.js` attach a `submit` event listener to the form and make sure to prevent the default behavior. If you don't know how to do that, check out the [MDN docs on preventing default behavior](https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault). Remember, the default behavior of the form is to reload the page (we didn't provide an `action` attribute, so there's nowhere but the current page to navigate, hence the reload), and we don't want that!
-
 # Question 10 - Getting our values
-Remember those `spans` from the opening? You need to take the data on form submission and then update the text content of those spans with the `value` of the inputs. The only exception is the checkbox. If the checkbox value is `on` that means it's clicked, so you should set the text content of that span to `yes`, otherwise set it to `no`.
+Remember those `spans` from the opening? You need to take the data on form submission and then update the text content of those spans with the `value` of the inputs. 
+
+The only exception is the checkbox. If the checkbox value is `on` that means it's clicked, so you should set the text content of that span to `yes`, otherwise set it to `no`.
 
 The text content is the `value` directly from the forms other than that, so just the lowercase `value`s that you added, not the formatted labels or text contents.
 
