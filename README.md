@@ -68,7 +68,7 @@ Forms are important (or should be) to our page, so we need to tell assistive tec
 - Give it an id of `form-heading`
 - Give it a text content of `Create A New User`
 
-Ok, that's going to help our sighted users. In general giving your form a heading just helps clarify what it does. But what about our screen reader users? To officially make this a landmark we need an "ARIA" label attribute, either `aria-label` or `aria-labelledby` (note the lowercase "by"). `aria-label` lets us label a form *without* using a visible heading. But since we have our `h2`, let's use that! We'll use `aria-labelledby` and give it the `id` of our `h2` tag.
+Ok, that's going to help our sighted users. In general giving your form a heading just helps clarify what it does. But what about our screen reader users? To officially make the form a landmark we need to give it an "ARIA" label attribute, either `aria-label` or `aria-labelledby` (note the lowercase "by"). `aria-label` lets us label a form *without* using a visible heading. But since we have our `h2`, let's use that! We'll use `aria-labelledby` and give it the `id` of our `h2` tag.
 
 Congratulations, your form is now more accessible than like 70% of the forms on the internet! *Killing it!*
 
